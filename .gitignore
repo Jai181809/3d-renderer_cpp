@@ -1,0 +1,25 @@
+# Build output
+build/
+out/
+
+# Generated images (regenerate these anytime by running your code)
+*.ppm
+*.png
+*.jpg
+
+# Compiled binaries
+*.exe
+*.obj
+*.o
+
+# CMake cache/generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# IDE-specific settings (if you use VS Code / CLion / Visual Studio)
+.vs/
+.vscode/
+*.sln
+*.vcxproj*
+.idea/
