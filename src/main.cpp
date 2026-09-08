@@ -13,6 +13,7 @@ int main() {
     File << "P3\n" << Im_length << ' ' << Im_width << "\n255\n";   // writung on the ppm file(image.ppm)
 
     for (int j = 0; j < Im_length; j++) {
+        clog << "\rScanlines remaining: " << (Im_length - j) << ' ' << std::flush;
         for (int i = 0; i < Im_width; i++) {
             auto b = double(i) / (Im_width-1);
             auto g = double(j) / (Im_length-1);
@@ -26,6 +27,7 @@ int main() {
         }
         
     }
+    clog << "\rDone.                 \n";
     File.close();
     Convertimage("image.ppm","image.png");
     Openimage("image.png");
