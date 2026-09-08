@@ -1,4 +1,4 @@
-[] getting ppm outputs
+[x] getting ppm outputs
 [] vec3 class
 [] introduction to ray class
 []  adding spheres
