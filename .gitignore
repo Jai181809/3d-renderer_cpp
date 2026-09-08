@@ -23,3 +23,5 @@ cmake_install.cmake
 *.sln
 *.vcxproj*
 .idea/
+
+*.pdf
