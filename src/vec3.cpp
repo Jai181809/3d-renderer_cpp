@@ -12,20 +12,10 @@ class vec3{
         double y() const {return e[1];}
         double z() const {return e[2];}
 
-        double mod() const {
-            double t = x()*x() + y()*y() + z()*z();
-            t = sqrt(t);
-            return t;
-        }
-        double mod_squared() const{
-            return x()*x() + y()*y() + z()*z();
-        }
-        vec3 operator-() const {    // we are using const here to make a copy of that vector
-            return vec3(-x(),-y(),-z());
-        }
+
 };
-vec3 operator+(const vec3& u, const vec3& v){   // here we called const as well as passsed vec3 by reference "&", which says that it wont copy(thus saving us space as we wont be making two another vectors "here u and v" as well time "copying takes time")
-    return vec3(u.x()+v.x(),u.y()+v.y(),u.z()+v.z());  //and const helps us says that we wont mutate the orignal vector
+vec3 operator+(const vec3& u, const vec3& v){
+    return vec3(u.x()+v.x(),u.y()+v.y(),u.z()+v.z());
 }
 vec3 operator-(const vec3& u, const vec3& v){
     return vec3(u.x()-v.x(),u.y()-v.y(),u.z()-v.z());
