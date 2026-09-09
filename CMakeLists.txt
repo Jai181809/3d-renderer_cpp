@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(raytracer src/main.cpp
     src/Image_opener.hpp
-    src/Image_opener.cpp)
+    src/Image_opener.cpp
+    src/vec3.cpp)
 
 find_program(MAGICK_EXECUTABLE magick)
 
