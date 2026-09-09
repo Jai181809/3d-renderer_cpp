@@ -1,3 +1,4 @@
+#include "vec3.hpp"
 #include <cmath>
 #include <iostream>
 
@@ -11,12 +12,15 @@ class vec3{
         double y() const {return e[1];}
         double z() const {return e[2];}
 
-        double mod(){
+        double mod() const {
             double t = x()*x() + y()*y() + z()*z();
             t = sqrt(t);
             return t;
         }
-        vec3 operator~(){
+        double mod_squared() const{
+            return x()*x() + y()*y() + z()*z();
+        }
+        vec3 operator-() const {    // we are using const here to make a copy of that vector
             return vec3(-x(),-y(),-z());
         }
 };
@@ -35,9 +39,10 @@ vec3 operator/(const vec3& u, double t){
 double dot(const vec3& v, const vec3& u){
     return (v.x()*u.x()) + (v.y()*u.y()) + (v.z()*u.z());
 }
-vec3 scal(const vec3& v,const vec3& u){
+vec3 cross(const vec3& v,const vec3& u){
    return vec3((v.y()*u.z())-(v.z()*u.y()),(v.z()*u.x())-(v.x()*u.z()),(v.x()*u.y())-(v.y()*u.x()));
 }
 vec3 operator+=(vec3 &v,const vec3 &u){
-    return v+u;
+    v = v + u;
+    return v;
 }
