@@ -24,9 +24,14 @@ vec3 vec3::operator-() const {
     return vec3(-x(), -y(), -z());
 }
 
+
 // Non-member operators
 vec3 operator+(const vec3& u, const vec3& v) {   // here we called const as well as passsed vec3 by reference "&", which says that it wont copy(thus saving us space as we wont be making two another vectors "here u and v" as well time "copying takes time")
     return vec3(u.x() + v.x(), u.y() + v.y(), u.z() + v.z());  //and const helps us says that we wont mutate the orignal vector
+}
+
+vec3 unit(const vec3 &v){
+    return v/v.mod() ;
 }
 
 vec3 operator-(const vec3& u, const vec3& v) {
