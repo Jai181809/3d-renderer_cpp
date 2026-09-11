@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include "Image_opener.hpp"
+#include "src/Image_opener.hpp"
+#include "math/vec3.hpp"
+#include "src/colour.hpp"
 using namespace std;
 
 int main() {
@@ -15,15 +17,10 @@ int main() {
     for (int j = 0; j < Im_length; j++) {
         clog << "\rScanlines remaining: " << (Im_length - j) << ' ' << std::flush;
         for (int i = 0; i < Im_width; i++) {
-            auto b = double(i) / (Im_width-1);
-            auto g = double(j) / (Im_length-1);
-            auto r = 0.0;
+            auto pixel_colour = colour(double(i)/(Im_width-1),double(j)/(Im_length-1),0);
+            colour wr = write_color(cout,pixel_colour);
+            File << wr.x() << " " << wr.y() << " " << wr.z() << "\n";
 
-            int ir = int(255.999 * r);  // we multipply with 255.999 so that we dont missout/ overflow to 256
-            int ig = int(255.999 * g);
-            int ib = int(255.999 * b);
-
-            File << ir << ' ' << ig << ' ' << ib << '\n';   // writung on the ppm file(image.ppm)
         }
         
     }
