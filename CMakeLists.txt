@@ -9,7 +9,8 @@ add_executable(3d-renderer main.cpp
     src/Image_opener.cpp
     math/vec3.cpp
     src/colour.hpp
-    raytracer/ray.hpp)
+    raytracer/ray.hpp
+    raytracer/camera.cpp)
 
 target_include_directories(3d-renderer PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}

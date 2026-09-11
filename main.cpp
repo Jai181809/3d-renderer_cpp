@@ -3,6 +3,7 @@
 #include "src/Image_opener.hpp"
 #include "math/vec3.hpp"
 #include "src/colour.hpp"
+//#include ""
 using namespace std;
 
 int main() {
@@ -10,14 +11,14 @@ int main() {
 
 
     // Image dimension
-    int Im_length = 256;
+    int Im_height = 256;
     int Im_width = 256;
-    File << "P3\n" << Im_length << ' ' << Im_width << "\n255\n";   // writung on the ppm file(image.ppm)
+    File << "P3\n" << Im_height << ' ' << Im_width << "\n255\n";   // writung on the ppm file(image.ppm)
 
-    for (int j = 0; j < Im_length; j++) {
-        clog << "\rScanlines remaining: " << (Im_length - j) << ' ' << std::flush;
+    for (int j = 0; j < Im_height; j++) {
+        clog << "\rScanlines remaining: " << (Im_height - j) << ' ' << std::flush;
         for (int i = 0; i < Im_width; i++) {
-            auto pixel_colour = colour(double(i)/(Im_width-1),double(j)/(Im_length-1),0);
+            auto pixel_colour = colour(double(i)/(Im_width-1),double(j)/(Im_height-1),0);
             colour wr = write_color(cout,pixel_colour);
             File << wr.x() << " " << wr.y() << " " << wr.z() << "\n";
 
