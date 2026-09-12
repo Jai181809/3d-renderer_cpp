@@ -6,7 +6,7 @@
 using namespace std;
 using colour = vec3;
 
-colour write_color(ostream& out, const colour& pixel_color) {  //here we pass ostream& so that we can save and print both, while also giving us flexibility over other ostream components
+inline colour write_color(ostream& out, const colour& pixel_color) {  //here we pass ostream& so that we can save and print both, while also giving us flexibility over other ostream components
     auto r = pixel_color.x();
     auto g = pixel_color.y();
     auto b = pixel_color.z();

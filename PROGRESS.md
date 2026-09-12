@@ -1,6 +1,6 @@
 [x] getting ppm outputs
 [x] vec3 class
-[] introduction to ray class
+[x] introduction to ray class
 []  adding spheres
 [] Surfaces
 [] Antialising:- fixing jagged images
