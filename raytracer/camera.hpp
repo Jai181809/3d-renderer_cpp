@@ -12,8 +12,15 @@ using namespace std;
 
 
 colour ray_color(const ray& r) {
-    if (hitsphere(point3(1,0,-1),0.5,r) >= 0){
-      return colour(1,0,0);
+  auto t = hitsphere(point3(0,0,-0.3),0.5,r);
+    if (t >= 0){
+      auto P = r.at(t);
+      auto N = P - point3(0,0,-0.3);
+      N = unit(N);
+      N += vec3(1,1,1);
+      auto new_N = N/2;
+
+      return new_N;
     }
    
     vec3 unit_direction = unit(r.direction());       // here this function defines the colour of the output, but it is subjected to change(will be added to colour.hpp later)
@@ -50,16 +57,14 @@ class camera{
         File << "P3\n" << Im_width << " " << Im_height << "\n255\n";
         for(int j = 0;j<Im_height;j++){
           clog << "\rScanlines remaining: " << (Im_height - j) << ' ' << flush;
+          auto pixel_center1 = pixel_0_0 + (j *delta_v);
           for (int i = 0; i < Im_width; i++) {
-            auto pixel_center = pixel_0_0 + (i *delta_u) + (j *delta_v);
+            auto pixel_center = pixel_center1 + (i *delta_u);
             auto ray_direction = pixel_center - camera_center;
             ray r(camera_center, ray_direction);
 
             colour pixel_colour = ray_color(r);   // fixed: was ray_colour
-            colour wr = write_color(cout, pixel_colour);
-            
-            File << wr.x() << " " << wr.y() << " " << wr.z() << "\n";
-        
+            write_color(File, pixel_colour);    
           }
         }
         File.close();
