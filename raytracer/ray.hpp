@@ -16,7 +16,7 @@ class ray{
     const point3& origin() const  { return orig; }
     const vec3& direction() const { return dir; }
 
-    point3 at(double t){
+    point3 at(double t) const{
         return orig + t*dir;  //new point, on the same line as of original and direction
     }
 
