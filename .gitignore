@@ -24,4 +24,6 @@ cmake_install.cmake
 *.vcxproj*
 .idea/
 
+*.pdfRay Tracing in One Weekend.html
+Scratchapixel Home Page.lnk
 *.pdf
