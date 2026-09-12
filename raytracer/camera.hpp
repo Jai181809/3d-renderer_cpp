@@ -12,7 +12,7 @@ using namespace std;
 
 
 colour ray_color(const ray& r) {
-    if (hitsphere(point3(0,0,-1),0.5,r)){
+    if (hitsphere(point3(1,0,-1),0.5,r) >= 0){
       return colour(1,0,0);
     }
    
