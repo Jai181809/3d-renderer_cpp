@@ -14,8 +14,7 @@ private:
         
 public:
     sphere(const point3& center, double radius) : center(center), radius(fmax(0,radius)) {} //constructor
-  
-    bool hit(const point3& center, double radius, const ray& r){      // here is the abstract function, only for sphere here
+    bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record &h){      // here is the abstract function, only for sphere here
 
     }                          
 };
