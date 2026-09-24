@@ -7,8 +7,8 @@ using point3 = vec3;   // this tells us points as in a vector form
 
 class ray{
     private:
-      point3 orig;   // the original point, from where the ray emreges
-      vec3 dir;   // the direction of the ray
+        point3 orig;   // the original point, from where the ray emreges
+        vec3 dir;   // the direction of the ray
     public :
     ray () {} // default constructor
 
