@@ -3,16 +3,33 @@
 #include <iostream>
 #include "math/vec3.hpp"
 #include "raytracer/ray.hpp"
+#include "hittable.hpp"
 
-double hitsphere(const point3& center, double radius, const ray& r){
-    vec3 oc = center - r.origin();
-    auto d = r.direction();
+
+class sphere : public hittable {        // here sphere is inheriting the abstract hittable class, this tells the compiler that this is a hittable object
+
+private:
+    point3 center;
+    double radius;
+        
+public:
+    sphere(const point3& center, double radius) : center(center), radius(fmax(0,radius)) {} //constructor
+  
+    bool hit(const point3& center, double radius, const ray& r){      // here is the abstract function, only for sphere here
+
+    }                          
+};
+
+
+/*double hitsphere(const point3& center, double radius, const ray& r){   // it returns the distance (t) from camera/origin to the point of intersection of sphere
+    vec3 oc = center - r.origin();   //gets the vector between the origin(camera) and sphere center
+    auto d = r.direction();   // gets the ray direction
     auto a = dot(d,d);
     auto b = -2*(dot(d,oc));
     auto c = dot(oc,oc) - radius*radius;
     auto disc = b*b - 4*a*c;  
     if(disc>=0){
-        auto t_min = -b-sqrt(disc); // nearer t
+        auto t_min = -b-sqrt(disc); // nearer t     
         auto t_max = -b+sqrt(disc);  //far t
         
         if (t_min >= 0){      //if t_min  was negative, then it is intersecting behind the camera(the origin point is taken as camera thats why)
@@ -27,5 +44,5 @@ double hitsphere(const point3& center, double radius, const ray& r){
         return -1.0; // if disc < 0 then intersection is not possible
     }
 }
-
+*/
 

@@ -12,17 +12,17 @@ using namespace std;
 
 
 colour ray_color(const ray& r) {
-  auto t = hitsphere(point3(0,0,-0.3),0.5,r);
+  auto t = hitsphere(point3(0,0,-1.2),0.8,r);
     if (t >= 0){
       auto P = r.at(t);
-      auto N = P - point3(0,0,-0.3);
+      auto N = P - point3(0,0,-1.2);
       N = unit(N);
       N += vec3(1,1,1);
       auto new_N = N/2;
 
       return new_N;
     }
-   
+
     vec3 unit_direction = unit(r.direction());       // here this function defines the colour of the output, but it is subjected to change(will be added to colour.hpp later)
     auto a = 0.5*(unit_direction.y() + 1.0);
     return (1.0-a)*colour(1.0, 1.0, 1.0) + a*colour(0.5, 0.7, 1.0);
