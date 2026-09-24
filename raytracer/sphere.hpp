@@ -36,11 +36,10 @@ public:
         
         h.t = root;
         h.p = r.at(h.t);  // getting point from center to (the ray r is originating from camera, and has a direction defined)
-        h.normal = (h.p - center)/radius ;  //normal
-    
-    
-    }       
-
+        vec3 outward_normal = (h.p - center)/radius ;  //normal
+        h.set_face_normal(r,outward_normal);  // calling the function to decide the normal in h variable class (defined)
+        return true;
+    }
 };
 
 
