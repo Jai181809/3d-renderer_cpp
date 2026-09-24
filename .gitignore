@@ -27,3 +27,4 @@ cmake_install.cmake
 *.pdfRay Tracing in One Weekend.html
 Scratchapixel Home Page.lnk
 *.pdf
+.autocommit.pid

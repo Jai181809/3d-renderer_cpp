@@ -21,20 +21,17 @@ public:
         auto a = dot(d,d);
         auto b = -2*(dot(d,oc));
         auto c = dot(oc,oc) - radius*radius;
-        auto disc = b*b - 4*a*c;                                                                        
+        auto disc = b*b - 4*a*c;    
+        
         if(disc < 0){return false;}
+        
+        auto sqrtd = sqrt(disc);
+        auto root = (-b-sqrtd)/(2*a);
     }                          
 };
 
 
-/*double hitsphere(const point3& center, double radius, const ray& r){   // it returns the distance (t) from camera/origin to the point of intersection of sphere
-    vec3 oc = center - r.origin();   //gets the vector between the origin(camera) and sphere center
-    auto d = r.direction();   // gets the ray direction
-    auto a = dot(d,d);
-    auto b = -2*(dot(d,oc));
-    auto c = dot(oc,oc) - radius*radius;
-    auto disc = b*b - 4*a*c;  
-    if(disc>=0){
+/*
         auto t_min = -b-sqrt(disc); // nearer t     
         auto t_max = -b+sqrt(disc);  //far t
         
