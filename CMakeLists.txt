@@ -12,7 +12,8 @@ add_executable(3d-renderer main.cpp
     raytracer/ray.hpp
     raytracer/camera.hpp
     raytracer/sphere.hpp
-    raytracer/hittable.hpp)
+    raytracer/hittable.hpp
+    raytracer/hittable_list.hpp)
 
 target_include_directories(3d-renderer PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}

@@ -14,34 +14,33 @@ private:
         
 public:
     sphere(const point3& center, double radius) : center(center), radius(fmax(0,radius)) {} //constructor
-    bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record &h){      // here is the abstract function, only for sphere here
-
-    }                          
+    bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record &h) const override{     // here is the abstract function, only for sphere here
+        // const overide meansconst wont change anything and overide says that it will overide the base function
+        vec3 oc = center - r.origin();   //gets the vector between the origin(camera) and sphere center
+        auto d = r.direction();   // gets the ray direction
+        auto a = dot(d,d);
+        auto b = -2*(dot(d,oc));
+        auto c = dot(oc,oc) - radius*radius;
+        auto disc = b*b - 4*a*c;    
+        
+        if(disc < 0){return false;}
+        
+        auto sqrtd = sqrt(disc);
+        auto root = (-b-sqrtd)/(2*a);
+        if (root <= ray_tmin || root >= ray_tmax){
+            root = (-b+sqrtd)/(2*a);
+            if (root <= ray_tmin || ray_tmax <= root){
+                return false;
+            }
+        }
+        
+        h.t = root;
+        h.p = r.at(h.t);  // getting point from center to (the ray r is originating from camera, and has a direction defined)
+        vec3 outward_normal = (h.p - center)/radius ;  //normal
+        h.set_face_normal(r,outward_normal);  // calling the function to decide the normal in h variable class (defined)
+        return true;
+    }
 };
 
 
-/*double hitsphere(const point3& center, double radius, const ray& r){   // it returns the distance (t) from camera/origin to the point of intersection of sphere
-    vec3 oc = center - r.origin();   //gets the vector between the origin(camera) and sphere center
-    auto d = r.direction();   // gets the ray direction
-    auto a = dot(d,d);
-    auto b = -2*(dot(d,oc));
-    auto c = dot(oc,oc) - radius*radius;
-    auto disc = b*b - 4*a*c;  
-    if(disc>=0){
-        auto t_min = -b-sqrt(disc); // nearer t     
-        auto t_max = -b+sqrt(disc);  //far t
-        
-        if (t_min >= 0){      //if t_min  was negative, then it is intersecting behind the camera(the origin point is taken as camera thats why)
-            return t_min/(2.0*a);
-        }
-        else{
-            return t_max/(2.0*a);  //if this was also negative, then both of them are intersecting behind the camera
-        }
-        
-    }
-    else{
-        return -1.0; // if disc < 0 then intersection is not possible
-    }
-}
-*/
 
