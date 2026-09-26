@@ -6,6 +6,7 @@
 #include "sphere.hpp"
 #include "hittable.hpp"
 #include "hittable_list.hpp"
+#include "../objects/triangle.hpp"
 
 
 
@@ -53,6 +54,7 @@ class camera{
 
         world.add(make_shared<sphere>(point3(0,0,-1), 0.5)); // sphere one
         world.add(make_shared<sphere>(point3(0,-100.5,-1), 100)); // land, but is a BIG sphere
+        world.add(make_shared<triangle>(point3 (0, 0, -5),point3 (4, 0, -5),point3 (0, 4, -3)));
         ofstream File(path);
         File << "P3\n" << Im_width << " " << Im_height << "\n255\n";
         for(int j = 0;j<Im_height;j++){
