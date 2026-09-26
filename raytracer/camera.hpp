@@ -1,14 +1,10 @@
 #pragma once
 
 
-#include <iostream>
-#include "math/vec3.hpp"
-#include "ray.hpp"
-#include "src/colour.hpp"
+#include "Math/constants.hpp"
 #include <fstream>
 #include "sphere.hpp"
 
-using namespace std;
 
 
 /*colour ray_color(const ray& r) {
@@ -26,7 +22,7 @@ using namespace std;
     vec3 unit_direction = unit(r.direction());       // here this function defines the colour of the output, but it is subjected to change(will be added to colour.hpp later)
     auto a = 0.5*(unit_direction.y() + 1.0);
     return (1.0-a)*colour(1.0, 1.0, 1.0) + a*colour(0.5, 0.7, 1.0);
-}*/
+}
 
 class camera{
     public: 
@@ -77,5 +73,4 @@ class camera{
       double viewport_width;
       vec3 pixel_0_0;
       vec3 delta_u;
-      vec3 delta_v;
-};
+      vec3 delta_v;*/

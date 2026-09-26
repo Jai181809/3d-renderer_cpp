@@ -1,8 +1,6 @@
 #pragma once
 
-#include <iostream>
-#include "math/vec3.hpp"
-#include "raytracer/ray.hpp"
+#include "Math/constants.hpp"
 #include "hittable.hpp"
 
 

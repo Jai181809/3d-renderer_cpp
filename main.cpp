@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include "src/Image_opener.hpp"
-#include "math/vec3.hpp"
-#include "src/colour.hpp"
 #include "raytracer/camera.hpp"
 using namespace std;
 

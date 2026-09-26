@@ -1,9 +1,6 @@
 #pragma once
 
-#include "ray.hpp"
-#include <iostream>
-
-using namespace std;
+#include "Math/constants.hpp"
 
 class hit_record{   //stores data important during ray hitting object
     public: 
