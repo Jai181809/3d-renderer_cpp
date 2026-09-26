@@ -4,28 +4,26 @@
 #include "Math/constants.hpp"
 #include <fstream>
 #include "sphere.hpp"
+#include "hittable.hpp"
+#include "hittable_list.hpp"
 
 
 
-/*colour ray_color(const ray& r) {
-  auto t = hitsphere(point3(0,0,-1.2),0.8,r);
-    if (t >= 0){
-      auto P = r.at(t);
-      auto N = P - point3(0,0,-1.2);
-      N = unit(N);
-      N += vec3(1,1,1);
-      auto new_N = N/2;
+colour ray_color(const ray& r, const hittable& world) {
+  hit_record rec;
+  // world
+  if (world.hit(r,0,infinity,rec)){
+    return 0.5*(rec.normal + colour(1,1,1));
+  }
 
-      return new_N;
-    }
-
-    vec3 unit_direction = unit(r.direction());       // here this function defines the colour of the output, but it is subjected to change(will be added to colour.hpp later)
-    auto a = 0.5*(unit_direction.y() + 1.0);
-    return (1.0-a)*colour(1.0, 1.0, 1.0) + a*colour(0.5, 0.7, 1.0);
+  vec3 unit_direction = unit(r.direction());       // here this function defines the colour of the output, but it is subjected to change(will be added to colour.hpp later)
+  auto a = 0.5*(unit_direction.y() + 1.0);
+  return (1.0-a)*colour(1.0, 1.0, 1.0) + a*colour(0.5, 0.7, 1.0);
 }
 
 class camera{
     public: 
+    // image definations 
       double aspect_ratio = 16.0 / 9.0;
       int Im_width = 400;
       vec3 camera_center = point3(0,0,0); // Camera position
@@ -44,11 +42,16 @@ class camera{
         delta_v = viewport_v/Im_height;                         // no "auto" — assigns member
         auto viewport_upperleft = camera_center - vec3(0,0,focal_length)-(viewport_v/2)-(viewport_u/2);
         pixel_0_0 = viewport_upperleft + (delta_u+delta_v)/2;   // no "auto" — assigns member
+
         
       }
 
       void render(string path){
         initialize();
+        hittable_list world;
+
+        world.add(make_shared<sphere>(point3(0,0,-1), 0.5));
+        world.add(make_shared<sphere>(point3(0,-100.5,-1), 100));
         ofstream File(path);
         File << "P3\n" << Im_width << " " << Im_height << "\n255\n";
         for(int j = 0;j<Im_height;j++){
@@ -59,7 +62,7 @@ class camera{
             auto ray_direction = pixel_center - camera_center;
             ray r(camera_center, ray_direction);
 
-            colour pixel_colour = ray_color(r);   // fixed: was ray_colour
+            colour pixel_colour = ray_color(r, world);
             write_color(File, pixel_colour);    
           }
         }
@@ -73,4 +76,8 @@ class camera{
       double viewport_width;
       vec3 pixel_0_0;
       vec3 delta_u;
-      vec3 delta_v;*/
+      vec3 delta_v;
+      // World
+
+
+    };
