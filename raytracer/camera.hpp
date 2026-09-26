@@ -9,10 +9,11 @@
 
 
 
-colour ray_color(const ray& r, const hittable& world) {
+colour ray_color(const ray& r, const hittable& objects) {
   hit_record rec;
-  // world
-  if (world.hit(r,0,infinity,rec)){
+
+  //object hitting
+  if (objects.hit(r,0,infinity,rec)){
     return 0.5*(rec.normal + colour(1,1,1));
   }
 
@@ -48,10 +49,10 @@ class camera{
 
       void render(string path){
         initialize();
-        hittable_list world;
+        
 
-        world.add(make_shared<sphere>(point3(0,0,-1), 0.5));
-        world.add(make_shared<sphere>(point3(0,-100.5,-1), 100));
+        world.add(make_shared<sphere>(point3(0,0,-1), 0.5)); // sphere one
+        world.add(make_shared<sphere>(point3(0,-100.5,-1), 100)); // land, but is a BIG sphere
         ofstream File(path);
         File << "P3\n" << Im_width << " " << Im_height << "\n255\n";
         for(int j = 0;j<Im_height;j++){
@@ -62,7 +63,7 @@ class camera{
             auto ray_direction = pixel_center - camera_center;
             ray r(camera_center, ray_direction);
 
-            colour pixel_colour = ray_color(r, world);
+            colour pixel_colour = ray_color(r, world);  //
             write_color(File, pixel_colour);    
           }
         }
@@ -78,6 +79,7 @@ class camera{
       vec3 delta_u;
       vec3 delta_v;
       // World
+      hittable_list world; // will have the objects and land and all those things
 
 
     };
