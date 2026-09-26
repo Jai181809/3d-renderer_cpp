@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Math/constants.hpp"
+#include "../Math/constants.hpp"
 #include <fstream>
 #include "sphere.hpp"
 #include "hittable.hpp"
