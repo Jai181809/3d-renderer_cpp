@@ -3,10 +3,9 @@
 
 #include "../Math/constants.hpp"
 #include <fstream>
-#include "sphere.hpp"
-#include "hittable.hpp"
+#include "objects/ob.hpp"
 #include "hittable_list.hpp"
-#include "../objects/triangle.hpp"
+
 
 
 

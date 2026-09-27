@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Math/constants.hpp"
-#include "hittable.hpp"
+#include "raytracer/hittable.hpp"
 
 
 class sphere : public hittable {        // here sphere is inheriting the abstract hittable class, this tells the compiler that this is a hittable object

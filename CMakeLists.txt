@@ -11,11 +11,13 @@ add_executable(3d-renderer main.cpp
     src/colour.hpp
     raytracer/ray.hpp
     raytracer/camera.hpp
-    raytracer/sphere.hpp
+    objects/sphere.hpp
     raytracer/hittable.hpp
     raytracer/hittable_list.hpp
     Math/constants.hpp
-    objects/Triangle.hpp)
+    objects/Triangle.hpp
+    objects/ob.hpp
+    objects/poly.hpp)
 
 target_include_directories(3d-renderer PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
