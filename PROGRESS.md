@@ -2,8 +2,8 @@
 [x] vec3 class
 [x] introduction to ray class
 [x]  adding spheres
-[] Surfaces
-[] Antialising:- fixing jagged images
+[x] Surfaces
+[x] Antialising:- fixing jagged images
 [] Diffusing materials
 [] Metal
 [] Dielectrics(snells law)

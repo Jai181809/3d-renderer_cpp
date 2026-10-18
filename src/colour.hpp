@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <cmath>
-#include "math/vec3.hpp"
 #include "interval.hpp"
 
 using namespace std;

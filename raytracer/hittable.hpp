@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/constants.hpp"
+#include "src/interval.hpp"
 
 
 class hit_record{   //stores data important during ray hitting object

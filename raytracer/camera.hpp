@@ -1,10 +1,9 @@
 #pragma once
 
-#include "../Math/constants.hpp"
 #include <fstream>
 #include "objects/ob.hpp"
 #include "hittable_list.hpp"
-#include "src/colour.hpp"
+#include "header_files.hpp"
 
 colour ray_color(const ray& r, const hittable& objects) {
     hit_record rec;
@@ -23,7 +22,7 @@ class camera {
 public: 
     // Image definitions
     double aspect_ratio = 16.0 / 9.0;
-    int Im_width = 400;
+    int Im_width = 1200;
     int samples_per_pixel = 10;
     vec3 camera_center = point3(0, 0, 0); // Camera position
     double focal_length = 1.0;
