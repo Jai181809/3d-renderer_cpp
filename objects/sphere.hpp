@@ -12,7 +12,7 @@ private:
         
 public:
     sphere(const point3& center, double radius) : center(center), radius(fmax(0,radius)) {} //constructor
-    bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record &h) const override{     // here is the abstract function, only for sphere here
+    bool hit(const ray& r, interval ray_t, hit_record &h) const override{     // here is the abstract function, only for sphere here
         // const overide meansconst wont change anything and overide says that it will overide the base function
         vec3 oc = center - r.origin();   //gets the vector between the origin(camera) and sphere center
         auto d = r.direction();   // gets the ray direction
@@ -25,9 +25,9 @@ public:
         
         auto sqrtd = sqrt(disc);
         auto root = (-b-sqrtd)/(2*a);
-        if (root <= ray_tmin || root >= ray_tmax){
+        if (root <= ray_t.min || root >= ray_t.max){
             root = (-b+sqrtd)/(2*a);
-            if (root <= ray_tmin || ray_tmax <= root){
+            if (root <= ray_t.min || ray_t.max <= root){
                 return false;
             }
         }

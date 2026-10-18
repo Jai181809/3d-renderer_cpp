@@ -20,12 +20,12 @@ class hittable_list : public hittable{
             objects.push_back(object);
     }
 
-    bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record &h) const override {   // understand this shi and write it down ###
+    bool hit(const ray& r, interval ray_t, hit_record &h) const override {   // understand this shi and write it down ###
         hit_record temp;
         bool hit_anything = false;
-        auto closest_so_far = ray_tmax;
+        auto closest_so_far = ray_t.max;
         for (const auto& object : objects) {
-            if (object->hit(r, ray_tmin, closest_so_far, temp)) {    // here it calls the objects function(say the object was the triangle class[hittable class] so it will be called then the hit function will be called for it)
+            if (object->hit(r, interval(ray_t.min, closest_so_far), temp)) {    // here it calls the objects function(say the object was the triangle class[hittable class] so it will be called then the hit function will be called for it)
                 hit_anything = true;
                 closest_so_far = temp.t;  
                 h = temp;  // here h starts recording those object(only one object) that hits and returns true

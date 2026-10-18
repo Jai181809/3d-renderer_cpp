@@ -22,7 +22,7 @@ class triangle : public hittable{
             n = cross((p1-p2),(p3-p1));
         }
 
-        bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record &h) const override{
+        bool hit(const ray& r, interval ray_t, hit_record &h) const override{
 
             auto b = r.direction();
             auto a = r.origin();
@@ -33,7 +33,7 @@ class triangle : public hittable{
             }
             auto t = (double)numerator/denominator; // it computes t from plane equation (P)dot(n) = (p1)dot(n)
 
-            if(t <= ray_tmin || t >= ray_tmax){
+            if(!ray_t.contains(t)){
                 return false;
             }
             auto p = r.at(t);
