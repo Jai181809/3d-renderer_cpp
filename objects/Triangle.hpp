@@ -3,6 +3,7 @@
 #include "Math/constants.hpp"
 #include "../raytracer/hittable.hpp"
 #include <cmath>
+#include "src/interval.hpp"
 
 
 inline bool same_side(double d1, double d2) {

@@ -2,6 +2,7 @@
 
 #include "Math/constants.hpp"
 #include "raytracer/hittable.hpp"
+#include "src/interval.hpp"
 
 
 class sphere : public hittable {        // here sphere is inheriting the abstract hittable class, this tells the compiler that this is a hittable object

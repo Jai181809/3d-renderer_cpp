@@ -13,7 +13,7 @@ colour ray_color(const ray& r, const hittable& objects) {
   hit_record rec;
 
   //object hitting
-  if (objects.hit(r,0,infinity,rec)){
+  if (objects.hit(r,interval(0,infinity),rec)){
     return 0.5*(rec.normal + colour(1,1,1));
   }
 
