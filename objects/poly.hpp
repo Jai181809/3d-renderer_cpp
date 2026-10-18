@@ -1,6 +1,7 @@
 #pragma once
 
 #include "vector"
+#include "algorithm"
 #include "triangle.hpp"
 
 
@@ -27,17 +28,31 @@ vec3 normal(const vector<point3> &points){
 class polygon : public hittable{
     private:
         vector<point3> points;
-        vec3
+        vector<pair<double,point3>> pair_;
     public :
 
     polygon (const vector<point3> &points) : points(points) {}
-    Center = centroid(points);
+    vec3 Center = centroid(points);
     vec3 norm = unit(normal(points));
     int n = points.size();
     vec3 u = unit(Center - points[0]);
     vec3 v = cross(norm,u);
     double angle_of(const point3 &point){
         return atan2(dot(point - Center,v),dot(point - Center,u));
+    }
+    void autopairing(){
+        for(const auto &point : points){
+            auto d =  angle_of(point);
+            pair_.emplace_back(d,point);
+        }
+        sort(pair_.begin(), pair_.end());
+    }
+
+    void sorted(){
+        points.clear();
+        for(int i = 0; i <n; i++ ){
+            points.push_back(pair_[i].second);
+        }
     }
 
 
