@@ -17,7 +17,8 @@ add_executable(3d-renderer main.cpp
     Math/constants.hpp
     objects/Triangle.hpp
     objects/ob.hpp
-    objects/poly.hpp)
+    objects/poly.hpp
+    header_files.hpp)
 
 target_include_directories(3d-renderer PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/constants.hpp"
+
 #include "raytracer/hittable.hpp"
 #include "src/interval.hpp"
 

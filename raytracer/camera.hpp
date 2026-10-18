@@ -4,6 +4,7 @@
 #include <fstream>
 #include "objects/ob.hpp"
 #include "hittable_list.hpp"
+#include "src/colour.hpp"
 
 colour ray_color(const ray& r, const hittable& objects) {
     hit_record rec;

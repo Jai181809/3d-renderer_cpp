@@ -1,5 +1,5 @@
 #pragma once
-#include "Math/constants.hpp"
+#include "../Math/constants.hpp"
 
 using namespace std;
 
@@ -8,7 +8,7 @@ class interval{
 
         double min;
         double max;
-        interval() : min(infinity), max(-infinity) {}  // default interval is empty
+        interval() : min(+infinity), max(-infinity) {}  // default interval is empty
         interval(double min, double max) : min(min), max(max) {}
 
         double size()const{
