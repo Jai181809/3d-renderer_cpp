@@ -23,7 +23,7 @@ public:
     // Image definitions
     double aspect_ratio = 16.0 / 9.0;
     int Im_width = 1200;
-    int samples_per_pixel = 16;
+    int samples_per_pixel = 64;
     vec3 camera_center = point3(0, 0, 0); // Camera position
     double focal_length = 1.0;
 
