@@ -1,9 +1,15 @@
 #pragma once
 
 #include <fstream>
+#include <iostream>
+#include <vector>
+#include <omp.h>
+
 #include "objects/ob.hpp"
 #include "hittable_list.hpp"
 #include "header_files.hpp"
+
+using namespace std;
 
 colour ray_color(const ray& r, const hittable& objects) {
     hit_record rec;
@@ -69,20 +75,37 @@ public:
         world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
         world.add(make_shared<triangle>(point3(0, 0, -5), point3(4, 0, -5), point3(0, 4, -3)));
 
-        ofstream File(path);
-        File << "P6\n" << Im_width << ' ' << Im_height << "\n255\n";
+        // 1. In-memory buffer so parallel threads don't collide on file I/O
+        vector<colour> framebuffer(Im_width * Im_height);
 
+            #pragma omp parallel for schedule(dynamic, 1)
         for (int j = 0; j < Im_height; j++) {
-            clog << "\rScanlines remaining: " << (Im_height - j) << ' ' << flush;
             for (int i = 0; i < Im_width; i++) {
                 colour pixel_color(0, 0, 0);
                 for (int sample = 0; sample < samples_per_pixel; sample++) {
                     ray r = get_ray(i, j);
                     pixel_color += ray_color(r, world);
                 }
-                write_color(File, pixel_samples_scale * pixel_color);
+                framebuffer[j * Im_width + i] = pixel_samples_scale * pixel_color;
             }
         }
+
+        // 3. Open strictly in binary mode to prevent Windows CRLF byte corruption
+        ofstream File(path, ios::out | ios::binary);
+        if (!File.is_open()) {
+            cerr << "Error: Could not open output file: " << path << "\n";
+            return;
+        }
+
+        // 4. Binary P6 PPM Header
+        File << "P6\n" << Im_width << ' ' << Im_height << "\n255\n";
+
+        // 5. Write buffered pixel bytes
+        for (const auto& pixel : framebuffer) {
+            write_color(File, pixel);
+        }
+
+        File.flush();
         File.close();
         clog << "\rDone.                 \n";
     }

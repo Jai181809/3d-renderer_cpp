@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <chrono>
+#include <omp.h>
 
 #include "../objects/ob.hpp"
 #include "../raytracer/hittable_list.hpp"
@@ -28,7 +29,7 @@ public:
     // Image definitions
     double aspect_ratio = 16.0 / 9.0;
     int Im_width = 1200;
-    int samples_per_pixel = 64;
+    int samples_per_pixel = 100;
     vec3 camera_center = point3(0, 0, 0); // Camera position
     double focal_length = 1.0;
 
@@ -84,6 +85,7 @@ public:
         auto start_time = chrono::high_resolution_clock::now();
 
         // --- Core ray-tracing calculation (NO DISK I/O) ---
+        #pragma omp parallel for schedule(dynamic,1)
         for (int j = 0; j < Im_height; j++) {
             for (int i = 0; i < Im_width; i++) {
                 colour pixel_color(0, 0, 0);
@@ -114,13 +116,13 @@ public:
 
         // 5. Write to file completely outside the benchmark loop
         clog << "Writing buffer to file: " << path << "...\n";
-        ofstream File(path);
+        ofstream File(path, ios::out | ios::binary);
         if (!File.is_open()) {
             cerr << "Error: Could not open output file: " << path << "\n";
             return;
         }
 
-        File << "P3\n" << Im_width << ' ' << Im_height << "\n255\n";
+        File << "P6\n" << Im_width << ' ' << Im_height << "\n255\n";
         for (const auto& pixel : framebuffer) {
             write_color(File, pixel);
         }
