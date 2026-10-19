@@ -1,11 +1,14 @@
-
-
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
+#include <chrono>
+
 #include "../objects/ob.hpp"
 #include "../raytracer/hittable_list.hpp"
 #include "../header_files.hpp"
+
+using namespace std;
 
 colour ray_color(const ray& r, const hittable& objects) {
     hit_record rec;
@@ -71,22 +74,59 @@ public:
         world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
         world.add(make_shared<triangle>(point3(0, 0, -5), point3(4, 0, -5), point3(0, 4, -3)));
 
-        ofstream File(path);
-        File << "P3\n" << Im_width << ' ' << Im_height << "\n255\n";
+        // 1. Allocate in-memory pixel buffer
+        vector<colour> framebuffer(Im_width * Im_height);
 
+        clog << "Rendering started [" << Im_width << "x" << Im_height 
+            << " | " << samples_per_pixel << " spp]...\n";
+
+        // 2. High-precision timer starts
+        auto start_time = chrono::high_resolution_clock::now();
+
+        // --- Core ray-tracing calculation (NO DISK I/O) ---
         for (int j = 0; j < Im_height; j++) {
-            clog << "\rScanlines remaining: " << (Im_height - j) << ' ' << flush;
             for (int i = 0; i < Im_width; i++) {
                 colour pixel_color(0, 0, 0);
                 for (int sample = 0; sample < samples_per_pixel; sample++) {
                     ray r = get_ray(i, j);
                     pixel_color += ray_color(r, world);
                 }
-                write_color(File, pixel_samples_scale * pixel_color);
+                // Store directly in 1D array: [row * width + col]
+                framebuffer[j * Im_width + i] = pixel_samples_scale * pixel_color;
             }
         }
+
+        // 3. High-precision timer stops
+        auto end_time = chrono::high_resolution_clock::now();
+        chrono::duration<double> elapsed = end_time - start_time;
+        double render_seconds = elapsed.count();
+
+        // 4. Calculate performance metrics
+        uint64_t total_rays = static_cast<uint64_t>(Im_width) * Im_height * samples_per_pixel;
+        double mrays_per_sec = (total_rays / 1'000'000.0) / render_seconds;
+        double pixels_per_sec = (Im_width * Im_height) / render_seconds;
+
+        cout << "\n================ Benchmark Results ================\n";
+        cout << "Pure Render Time : " << render_seconds << " seconds\n";
+        cout << "Throughput       : " << pixels_per_sec << " pixels/sec\n";
+        cout << "Primary Ray Rate : " << mrays_per_sec << " MRays/sec\n";
+        cout << "===================================================\n\n";
+
+        // 5. Write to file completely outside the benchmark loop
+        clog << "Writing buffer to file: " << path << "...\n";
+        ofstream File(path);
+        if (!File.is_open()) {
+            cerr << "Error: Could not open output file: " << path << "\n";
+            return;
+        }
+
+        File << "P3\n" << Im_width << ' ' << Im_height << "\n255\n";
+        for (const auto& pixel : framebuffer) {
+            write_color(File, pixel);
+        }
         File.close();
-        clog << "\rDone.                 \n";
+
+        clog << "Done.\n";
     }
 
 private:
@@ -100,11 +140,8 @@ private:
     hittable_list world;
 };
 
-
-
-
-
-int main(){
+int main() {
     camera cl;
     cl.render("image.ppm");
+    return 0;
 }

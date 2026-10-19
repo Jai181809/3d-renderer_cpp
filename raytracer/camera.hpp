@@ -70,7 +70,7 @@ public:
         world.add(make_shared<triangle>(point3(0, 0, -5), point3(4, 0, -5), point3(0, 4, -3)));
 
         ofstream File(path);
-        File << "P3\n" << Im_width << ' ' << Im_height << "\n255\n";
+        File << "P6\n" << Im_width << ' ' << Im_height << "\n255\n";
 
         for (int j = 0; j < Im_height; j++) {
             clog << "\rScanlines remaining: " << (Im_height - j) << ' ' << flush;
