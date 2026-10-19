@@ -8,7 +8,7 @@
 
 
 
-#include "raytracer/ray.hpp"
+#include "../raytracer/ray.hpp"
 #include "vec3.hpp"
 
 

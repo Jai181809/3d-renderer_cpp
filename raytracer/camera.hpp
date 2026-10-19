@@ -23,7 +23,7 @@ public:
     // Image definitions
     double aspect_ratio = 16.0 / 9.0;
     int Im_width = 1200;
-    int samples_per_pixel = 10;
+    int samples_per_pixel = 16;
     vec3 camera_center = point3(0, 0, 0); // Camera position
     double focal_length = 1.0;
 
@@ -70,7 +70,7 @@ public:
         world.add(make_shared<triangle>(point3(0, 0, -5), point3(4, 0, -5), point3(0, 4, -3)));
 
         ofstream File(path);
-        File << "P3\n" << Im_width << " " << Im_height << "\n255\n";
+        File << "P3\n" << Im_width << ' ' << Im_height << "\n255\n";
 
         for (int j = 0; j < Im_height; j++) {
             clog << "\rScanlines remaining: " << (Im_height - j) << ' ' << flush;

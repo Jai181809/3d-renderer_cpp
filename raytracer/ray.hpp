@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "math/vec3.hpp"
+#include "../Math/vec3.hpp"
 
 using point3 = vec3;   // this tells us points as in a vector form
 

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Math/constants.hpp"
+#include "../Math/constants.hpp"
 #include "../raytracer/hittable.hpp"
 #include <cmath>
-#include "src/interval.hpp"
+#include "../src/interval.hpp"
 
 
 inline bool same_side(double d1, double d2) {
@@ -29,7 +29,7 @@ class triangle : public hittable{
             auto a = r.origin();
             auto denominator = dot(b,n);
             auto numerator = dot(p1,n) - dot(a,n);
-            if(std::fabs(denominator) < 1e-8){  // if b is perpendicular to normal of the plane
+            if(fabs(denominator) < 1e-8){  // if b is perpendicular to normal of the plane
                 return false;
             }
             auto t = (double)numerator/denominator; // it computes t from plane equation (P)dot(n) = (p1)dot(n)
